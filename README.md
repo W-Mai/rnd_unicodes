@@ -12,7 +12,7 @@ This is a simple c lib that generates a random unicode string of a given length.
 
 #define BUF_LEN 1024
 
-utf8_t chars[BUFSIZ];
+utf8_t chars[BUF_LEN];
 
 int main() {
     int len = random_utf8_chars(chars, BUF_LEN, ALPHANUM_AND_CJK_TABLE, ALPHANUM_AND_CJK_TABLE_LEN, 256);
