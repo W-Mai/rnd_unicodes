@@ -1,7 +1,11 @@
 #include "library.h"
 #include "stdlib.h"
 
-#define RANDOM rand
+#ifdef RANDOM_CALL_PROCESS
+#define RANDOM RANDOM_CALL_PROCESS
+#else
+#define RANDOM rand()
+#endif
 
 uint32_t ALPHANUM_AND_CJK_TABLE[] = {
         0x4e00, 0x9fa5, // CJK Unified Ideographs
@@ -96,7 +100,7 @@ int random_one_utf8_char(utf8_t *buf, int buf_len, unicode_t char_range_min, uni
         return -1;
     }
 
-    uint32_t r = RANDOM() % (char_range_max - char_range_min + 1) + char_range_min;
+    uint32_t r = RANDOM % (char_range_max - char_range_min + 1) + char_range_min;
 
     return unicode_to_uft8(buf, buf_len, r);
 }
@@ -108,7 +112,7 @@ int random_utf8_chars(utf8_t *buf, int buf_len, unicode_t *ranges, uint32_t rang
 
     int buf_index = 0;
     for (int i = 0; i < char_num && buf_index < buf_len; i++) {
-        int range_index = RANDOM() % range_num;
+        int range_index = RANDOM % range_num;
         int ret = random_one_utf8_char(buf + buf_index,
                                        buf_len - buf_index,
                                        ranges[2 * range_index],

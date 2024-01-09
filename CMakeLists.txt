@@ -3,6 +3,8 @@ project(rnd_unicodes C)
 
 set(CMAKE_C_STANDARD 11)
 
+add_definitions(-DRANDOM_CALL_PROCESS=rand\(\))
+
 add_library(rnd_unicodes SHARED src/library.c)
 
 add_executable(rnd_unicodes_test examples/main.c)
